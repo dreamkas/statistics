@@ -1,0 +1,8 @@
+spring:
+  profiles: development
+kafka:
+  brokers: master.hdp:6667
+  topics.statistics: "cashes-statistics-development"
+spark:
+  master: local[2]
+  appName: CashesStatisticsStreamingDevelopment

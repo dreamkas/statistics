@@ -1,0 +1,8 @@
+
+         ${AnsiColor.BLUE}    ___   ${AnsiColor.GREEN}  _____   ${AnsiColor.BRIGHT_MAGENTA}  ___   ${AnsiColor.GREEN}   ___   ${AnsiColor.BLUE}   ___  ${AnsiColor.MAGENTA}  __  __  ${AnsiColor.BLUE}   ___  ${AnsiColor.GREEN}   _  _   ${AnsiColor.MAGENTA}   ___ ${AnsiColor.DEFAULT}
+    o O O${AnsiColor.BLUE}   / __|  ${AnsiColor.GREEN} |_   _|  ${AnsiColor.BRIGHT_MAGENTA} | _ \  ${AnsiColor.GREEN}  | __|  ${AnsiColor.BLUE}  /   \ ${AnsiColor.MAGENTA} |  \/  | ${AnsiColor.BLUE}  |_ _| ${AnsiColor.GREEN}  | \| |  ${AnsiColor.MAGENTA}  / __|${AnsiColor.DEFAULT}
+   o     ${AnsiColor.BLUE}   \__ \  ${AnsiColor.GREEN}   | |    ${AnsiColor.BRIGHT_MAGENTA} |   /  ${AnsiColor.GREEN}  | _|   ${AnsiColor.BLUE}  | - | ${AnsiColor.MAGENTA} | |\/| | ${AnsiColor.BLUE}   | |  ${AnsiColor.GREEN}  | .` |  ${AnsiColor.MAGENTA} | (_ |${AnsiColor.DEFAULT}
+  TS__[O]${AnsiColor.BLUE}   |___/  ${AnsiColor.GREEN}  _|_|_   ${AnsiColor.BRIGHT_MAGENTA} |_|_\  ${AnsiColor.GREEN}  |___|  ${AnsiColor.BLUE}  |_|_| ${AnsiColor.MAGENTA} |_|__|_| ${AnsiColor.BLUE}  |___| ${AnsiColor.GREEN}  |_|\_|  ${AnsiColor.MAGENTA}  \___|${AnsiColor.DEFAULT}
+ {======| _|"""""| _|"""""| _|"""""| _|"""""| _|"""""| _|"""""| _|"""""| _|"""""| _|"""""| 
+./o--000' "`-0-0-' "`-0-0-' "`-0-0-' "`-0-0-' "`-0-0-' "`-0-0-' "`-0-0-' "`-0-0-' "`-0-0-'
+
