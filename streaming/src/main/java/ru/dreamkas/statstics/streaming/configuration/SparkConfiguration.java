@@ -1,6 +1,7 @@
 package ru.dreamkas.statstics.streaming.configuration;
 
 import org.apache.spark.SparkConf;
+import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.streaming.Duration;
@@ -17,6 +18,10 @@ public class SparkConfiguration {
     @Autowired
     public SparkConfiguration(AppConfig config) {
         this.config = config;
+        String hadoopHome = config.getHadoopHome();
+        if (hadoopHome != null) {
+            System.setProperty("hadoop.home.dir", hadoopHome);
+        }
     }
 
     @Bean
@@ -33,7 +38,7 @@ public class SparkConfiguration {
 
     @Bean
     public JavaSparkContext javaSparkContext(SparkConf conf) {
-        return new JavaSparkContext(conf);
+        return new JavaSparkContext(new SparkContext(conf));
     }
 
     @Bean

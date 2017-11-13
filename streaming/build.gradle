@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.8.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -19,18 +19,16 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	implementation 'org.scala-lang:scala-library:2.11.8'
+    implementation group: 'org.scala-lang', name: 'scala-library', version: '2.11.8'
 
-	compile('org.springframework.boot:spring-boot-starter')
-
-	compile('org.springframework.kafka:spring-kafka')
-	compile group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.11', version: '2.2.0'
-	compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.2.0'
-	compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.2.0'
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile group: 'org.springframework.kafka', name: 'spring-kafka'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    compile group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.11', version: '2.2.0'
+    compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.2.0'
+    compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.2.0'
 }

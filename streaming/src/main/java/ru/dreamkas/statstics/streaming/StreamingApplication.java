@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StreamingApplication {
 
     public static void main(String[] args) {
+        System.setProperty("hadoop.home.dir", "C:\\Hadoop\\");
         SpringApplication.run(StreamingApplication.class, args);
     }
 

@@ -10,12 +10,13 @@ import org.apache.spark.SparkConf;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import ru.dreamkas.statstics.streaming.constants.ConsumingGroups;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+@Component
 public class AppConfig {
     @Value("${kafka.brokers}")
     private String brokers;
@@ -26,6 +27,8 @@ public class AppConfig {
     private String master;
     @Value("${spark.appName}")
     private String appName;
+    @Value("${spark.hadoop.home}")
+    private String hadoopHome;
 
     public String getBrokers() {
         return brokers;
@@ -67,5 +70,9 @@ public class AppConfig {
 
     public SparkConf getSparkConf() {
         return new SparkConf().setMaster(master).setAppName(appName);
+    }
+
+    public String getHadoopHome() {
+        return hadoopHome;
     }
 }
