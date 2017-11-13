@@ -3,3 +3,5 @@
 .idea/
 streaming/src/test/resources/
 streaming/.gradle/
+streaming/out/
+/streaming/src/main/resources/application-override.yml

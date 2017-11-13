@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -26,16 +27,14 @@ public class DevelopmentProducer {
 
     private final List<String> warehouse;
     private final Random rnd;
-    private final Path warehousePath = Paths.get("/home/p.tykvin/dump");
-
     private final KafkaTemplate<Integer, String> template;
     private final String topic;
 
     @Autowired
-    public DevelopmentProducer(KafkaTemplate<Integer, String> template, AppConfig config) throws IOException {
+    public DevelopmentProducer(KafkaTemplate<Integer, String> template, AppConfig config, @Value("${warehouse-path:/home/p.tykvin/dump}") String warehousePath) throws IOException {
         this.template = template;
         this.topic = config.getStatisticTopic();
-        warehouse = Files.lines(warehousePath).collect(Collectors.toList());
+        warehouse = Files.lines(Paths.get(warehousePath)).collect(Collectors.toList());
         rnd = new Random(warehouse.size());
     }
 
