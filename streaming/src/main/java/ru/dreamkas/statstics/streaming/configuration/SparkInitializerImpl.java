@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import scala.runtime.AbstractFunction0;
 
-@Service
+//@Service
 public class SparkInitializerImpl implements SparkInitializer {
     private SparkSession session;
     private SparkConf sparkConf;
