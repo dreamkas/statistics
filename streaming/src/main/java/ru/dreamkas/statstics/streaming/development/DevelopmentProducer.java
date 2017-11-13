@@ -1,5 +1,6 @@
 package ru.dreamkas.statstics.streaming.development;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,7 +35,11 @@ public class DevelopmentProducer {
     public DevelopmentProducer(KafkaTemplate<Integer, String> template, AppConfig config, @Value("${warehouse-path:/home/p.tykvin/dump}") String warehousePath) throws IOException {
         this.template = template;
         this.topic = config.getStatisticTopic();
-        warehouse = Files.lines(Paths.get(warehousePath)).collect(Collectors.toList());
+        Path path = Paths.get(warehousePath);
+        if (!Files.exists(path)) {
+            throw new FileNotFoundException("Warehouse not found");
+        }
+        warehouse = Files.lines(path).collect(Collectors.toList());
         rnd = new Random(warehouse.size());
     }
 

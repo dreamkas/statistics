@@ -4,6 +4,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.runtime.AbstractFunction0;
 
 @Service
 public class SparkInitializerImpl implements SparkInitializer {
@@ -13,7 +14,12 @@ public class SparkInitializerImpl implements SparkInitializer {
     @Autowired
     public SparkInitializerImpl(AppConfig config) {
         sparkConf = new SparkConf().setMaster(config.getMaster()).setAppName(config.getAppName());
-        session = SparkSession.builder().config(sparkConf).getOrCreate();
+        session = SparkSession.getActiveSession().getOrElse(new AbstractFunction0<SparkSession>() {
+            @Override
+            public SparkSession apply() {
+                return SparkSession.builder().config(sparkConf).getOrCreate();
+            }
+        });
     }
 
     @Override

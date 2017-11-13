@@ -26,8 +26,8 @@ repositories {
 dependencies {
 	implementation 'org.scala-lang:scala-library:2.11.8'
 
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-actuator-docs')
+	compile('org.springframework.boot:spring-boot-starter')
+
 	compile('org.springframework.kafka:spring-kafka')
 	compile group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.11', version: '2.2.0'
 	compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.2.0'
