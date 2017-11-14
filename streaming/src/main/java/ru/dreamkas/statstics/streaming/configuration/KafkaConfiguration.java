@@ -6,7 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.core.*;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+
+import ru.dreamkas.statstics.streaming.terminal.TerminalOperation;
+import ru.dreamkas.statstics.streaming.terminal.TerminalOperationShow;
 
 @Configuration
 @EnableKafka
@@ -31,7 +38,6 @@ public class KafkaConfiguration {
         return new DefaultKafkaConsumerFactory<>(config.getConsumerConfigs());
     }
 
-
     @Bean
     @Profile("development")
     public ProducerFactory<Integer, String> producerFactory() {
@@ -42,5 +48,10 @@ public class KafkaConfiguration {
     @Profile("development")
     public KafkaTemplate<Integer, String> kafkaTemplate(ProducerFactory<Integer, String> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
+    }
+
+    @Bean
+    public TerminalOperation terminalOperation() {
+        return new TerminalOperationShow();
     }
 }

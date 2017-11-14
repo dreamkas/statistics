@@ -1,18 +1,18 @@
+def springVersion = '5.0.1.RELEASE'
+def sparkVersion = '2.2.0'
+
 buildscript {
-    ext {
-        springBootVersion = '1.5.8.RELEASE'
-    }
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'project-report'
 
 group = 'ru.dreamkas.statstics'
@@ -23,17 +23,21 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    all*.exclude group: 'org.slf4j', module :'slf4j-log4j12'
-    all*.exclude group: 'ch.qos.logback'
+shadowJar {
+    zip64 true
 }
 
-
 dependencies {
-    compile ('org.springframework.kafka:spring-kafka')
-    compile ('org.springframework.boot:spring-boot-starter-web')
-    compile ('org.apache.spark:spark-streaming-kafka-0-10_2.11:2.2.0')
-    compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.2.0'
-    compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.2.0'
+    compile group: 'org.springframework', name: 'spring-context', version: springVersion
+
+    compile group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-yarn_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: sparkVersion
+
+    compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.0.1.RELEASE'
+
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.25'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.19'
 
 }
