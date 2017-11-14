@@ -22,9 +22,9 @@ import org.springframework.stereotype.Service;
 
 import ru.dreamkas.statstics.streaming.configuration.AppConfig;
 
-@Service
-@Profile("development")
-@DependsOn("sparkHandler")
+//@Service
+//@Profile("development")
+//@DependsOn("sparkHandler")
 public class DevelopmentProducer {
 
     private final List<String> warehouse;

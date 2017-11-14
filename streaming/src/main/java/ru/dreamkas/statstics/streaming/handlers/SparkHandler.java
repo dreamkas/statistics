@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.streaming.api.java.JavaInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
@@ -52,13 +54,14 @@ public class SparkHandler {
         stream.map(ConsumerRecord::value)
             .filter(s -> !s.isEmpty())
             .foreachRDD((rdd, time) -> {
-                terminalOperation.finish(
-                    aggregator.aggregate(
-                        ss
-                            .read()
-                            .json(rdd)
-                    )
+                Dataset<Row> dataset = aggregator.aggregate(
+                    ss
+                        .read()
+                        .json(rdd)
                 );
+                if (dataset != null) {
+                    terminalOperation.finish(dataset);
+                }
             });
     }
 }
