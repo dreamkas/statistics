@@ -1,5 +1,8 @@
 spring:
   profiles: production
 kafka:
-  brokers: master.hdp:6667,replica.hdp:6667
+  brokers: master.hdp:6667,secondary.hdp:6667
   topics.statistics: "cashes-statistics"
+spark:
+  master: yarn
+  appName: CashesStatisticsStreaming

@@ -11,8 +11,9 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'project-report'
 
 group = 'ru.dreamkas.statstics'
 version = '0.0.1-SNAPSHOT'
@@ -22,13 +23,16 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    all*.exclude group: 'org.slf4j', module :'slf4j-log4j12'
+}
+
 
 dependencies {
-    implementation group: 'org.scala-lang', name: 'scala-library', version: '2.11.8'
-
-    compile group: 'org.springframework.kafka', name: 'spring-kafka'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
-    compile group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.11', version: '2.2.0'
+    compile ('org.springframework.kafka:spring-kafka')
+    compile ('org.springframework.boot:spring-boot-starter-web')
+    compile ('org.apache.spark:spark-streaming-kafka-0-10_2.11:2.2.0')
     compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.2.0'
     compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.2.0'
+
 }

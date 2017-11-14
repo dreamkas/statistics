@@ -1,21 +1,32 @@
 package ru.dreamkas.statstics.streaming;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import java.util.concurrent.Executors;
+
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import ru.dreamkas.statstics.streaming.handlers.SparkHandler;
 
 @SpringBootApplication
 public class StreamingApplication {
 
-    public static void main(String[] args) {
-        System.setProperty("hadoop.home.dir", "C:\\Hadoop\\");
-        SpringApplication.run(StreamingApplication.class, args);
+    @Autowired
+    public StreamingApplication(SparkHandler sparkHandler, JavaStreamingContext jssc) {
+        Executors.newCachedThreadPool().execute(() -> {
+            try {
+                sparkHandler.startStreaming();
+                jssc.start();
+                jssc.awaitTermination();
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+
     }
 
-
-    //    @KafkaListener(topics = Topics.CASHES_STATISTICS_TOPIC)
-    public void listen(ConsumerRecord<?, ?> cr) throws Exception {
-        System.out.print("StreamingApplication.listen__");
-        System.out.println("cr.toString() = " + cr.toString());
+    public static void main(String[] args) {
+        SpringApplication.run(StreamingApplication.class, args);
     }
 }

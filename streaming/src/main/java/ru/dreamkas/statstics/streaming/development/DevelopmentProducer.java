@@ -7,23 +7,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import ru.dreamkas.statstics.streaming.configuration.AppConfig;
 
-@Component
+@Service
 @Profile("development")
-@EnableScheduling
+@DependsOn("sparkHandler")
 public class DevelopmentProducer {
 
     private final List<String> warehouse;
@@ -44,9 +45,17 @@ public class DevelopmentProducer {
     }
 
     @PostConstruct
-    @Scheduled(fixedRate = 200)
     public void run() throws Exception {
-        String value = warehouse.get(rnd.nextInt(warehouse.size()));
-        template.send(topic, value);
+        Executors.newCachedThreadPool().execute(() -> {
+            while (!Thread.interrupted()) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                String value = warehouse.get(rnd.nextInt(warehouse.size()));
+                template.send(topic, value);
+            }
+        });
     }
 }
