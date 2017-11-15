@@ -1,16 +1,14 @@
 package ru.dreamkas.statstics.streaming;
 
-import java.util.concurrent.Executors;
-
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
 import ru.dreamkas.statstics.streaming.handlers.SparkHandler;
 
-@SpringBootApplication
+@Service
 public class StreamingApplication {
 
     private final SparkHandler sparkHandler;
@@ -23,7 +21,7 @@ public class StreamingApplication {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ConfigurableApplicationContext context = SpringApplication.run(StreamingApplication.class, args);
+        ApplicationContext context = new AnnotationConfigApplicationContext(StreamingApplication.class.getPackage().getName());
         StreamingApplication app = context.getBean(StreamingApplication.class);
         app.start();
     }

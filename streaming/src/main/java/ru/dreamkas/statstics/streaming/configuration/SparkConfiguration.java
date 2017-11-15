@@ -25,7 +25,6 @@ public class SparkConfiguration {
             .setAppName(config.getAppName());
     }
 
-
     @Bean
     public SparkSession sparkSession(JavaStreamingContext jssc) {
         return SparkSession
