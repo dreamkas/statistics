@@ -17,6 +17,8 @@ public class AppConfig {
     private String brokers;
     @Value("${kafka.topics.statistics}")
     private String statisticTopic;
+    @Value("${hadoop.enter:master.hdp:5150}")
+    private String masterUrl;
 
     public String getBrokers() {
         return brokers;
@@ -24,6 +26,10 @@ public class AppConfig {
 
     public String getStatisticTopic() {
         return statisticTopic;
+    }
+
+    public String getMasterUrl() {
+        return masterUrl;
     }
 
     public Map<String, Object> getConsumerConfigs() {
